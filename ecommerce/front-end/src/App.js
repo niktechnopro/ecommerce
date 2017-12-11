@@ -10,6 +10,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
+          <Route exact path="/" component={SlickSlider} />
         </div>
       </Router>
     );
