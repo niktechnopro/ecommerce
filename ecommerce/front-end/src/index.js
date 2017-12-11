@@ -6,6 +6,9 @@ import App from './App';
 import Student from './Student';
 import NavBar from './NavBar';
 
-ReactDOM.render(<NavBar />, document.getElementById('root'));
+ReactDOM.render(
+	<App />, 
+	document.getElementById('root')
+	);
 // registerServiceWorker();
 //we have made a temp component called student
