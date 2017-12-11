@@ -18,14 +18,16 @@ class NavBar extends Component{
 	                		</ul>
 	                	</div>
                 	</div>
-                	<div className="container-fluid navbar-grey">
-                		<div className="nav navbar-header">
-                			ClassicModels Logo
-                		</div>
-                		<div className="nav navbar-nav pull-right">
-                			<li>Sign in or Create Account</li>
-                			<li>(0) items in cart | ($0.00)</li>
-                		</div>
+                	<div className="container-fluid navbar-default">
+                		<div className="container">
+	                		<div className="nav navbar-header">
+	                			ClassicModels Logo
+	                		</div>
+	                		<div className="nav navbar-nav pull-right">
+	                			<li>Sign in or Create Account</li>
+	                			<li>(0) items in cart | ($0.00)</li>
+	                		</div>
+	                	</div>
                 	</div>
                 </nav>
 			</div>
