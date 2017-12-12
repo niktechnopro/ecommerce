@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
-
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 class NavBar extends Component{
 	constructor(){
 		super();
@@ -10,17 +10,18 @@ class NavBar extends Component{
 			<div id="navbar">
 				<nav className="navbar navbar-fixed-top">
               			<div className="container-fluid navbar-white">
-              			<div className="container">
+              			<div className="links">
 	                		<ul className="nav navbar-nav">
-	                			<li>Home</li>
-	                			<li>Shop</li>
-	                			<li>Contact Us</li>
+	                			<li><Link to="/">Home</Link></li>
+	                			<li><Link to="/shop">Shop</Link></li>
+	                			<li><Link to="/contact">Contact Us</Link></li>
+	                			<li><Link to="/login">Login</Link></li>
 	                		</ul>
 	                	</div>
                 	</div>
                 	<div className="container-fluid navbar-default">
                 		<div className="container">
-	                		<div className="nav navbar-header">
+	                		<div className="nav navbar-header logo">
 	                			ClassicModels Logo
 	                		</div>
 	                		<div className="nav navbar-nav pull-right">
@@ -33,7 +34,6 @@ class NavBar extends Component{
 			</div>
 		)
 	}
-
 }
 
 export default NavBar;

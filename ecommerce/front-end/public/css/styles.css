@@ -1,4 +1,31 @@
+h1 {
+  font-color: red; }
+
+html {
+  font-size: 62.5%; }
+
 body {
   background-color: white; }
+
+a {
+  decoration: none; }
+
+li {
+  font-weight: 500; }
+
+.loginForm {
+  position: absolute;
+  top: 50%;
+  left: 50%; }
+  .loginForm h1 {
+    font-size: 2em;
+    color: h1-color; }
+
+.fromTop {
+  margin-top: 5rem; }
+
+.logo {
+  color: green;
+  font-size: 3rem; }
 
 /*# sourceMappingURL=styles.css.map */
