@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from "./NavBar";
 import SlickSlider from './components/SlickSlider';
 // import RegisterLogin from './components/RegisterLogin';
-import Register from './components/Register';
+import Register from './container/Register';
 import Home from './components/Home';
 
 
