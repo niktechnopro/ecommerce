@@ -1,4 +1,4 @@
-@import 'base';
+@import 'navbar';
 
 $brand-color: white;
 $h1-color: red;
@@ -38,3 +38,8 @@ li{
 	color: green;
 	font-size:3rem;
 }
+
+.app-body{
+	margin-top: 50px;
+}
+

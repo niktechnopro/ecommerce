@@ -3,8 +3,9 @@ import logo from './logo.svg';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from "./NavBar";
 import SlickSlider from './components/SlickSlider';
-import RegisterLogin from './components/RegisterLogin';
-
+// import RegisterLogin from './components/RegisterLogin';
+import Register from './components/Register';
+import Home from './components/Home';
 
 
 class App extends Component {
@@ -12,9 +13,13 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar /> //navbar always shows up
-          <Route exact path="/" component={SlickSlider} />
-          <Route path="/login" component={RegisterLogin} />
+          <NavBar />
+          <div className="app-body">
+            <div className="container">
+              <Route exact path="/" component={SlickSlider} />
+              <Route path="/register" component={Register} />
+            </div>
+            </div>
         </div>
       </Router>
     );

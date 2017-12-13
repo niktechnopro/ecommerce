@@ -1,5 +1,11 @@
-h1 {
-  font-color: red; }
+.navbar-white {
+  background-color: white; }
+
+.nav.pull-right li a {
+  display: inline; }
+
+.app-body {
+  margin-top: 100px; }
 
 html {
   font-size: 62.5%; }
@@ -27,5 +33,8 @@ li {
 .logo {
   color: green;
   font-size: 3rem; }
+
+.app-body {
+  margin-top: 50px; }
 
 /*# sourceMappingURL=styles.css.map */
