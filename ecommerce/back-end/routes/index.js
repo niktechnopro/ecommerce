@@ -9,8 +9,62 @@ connection.connect((error)=>{
 	(!error) ? console.log('db connection=success!') : console.log(error)
 });//connecting to our database
 
+router.post('/login', (req, res, next)=>{
+	console.log(req.body)//can be also after res.json
+	const email = req.body.email;
+	const password = req.body.password;
 
-console.log(randToken.uid(100));
+	const checkLoginQuery= `SELECT * FROM users
+	INNER JOIN customers ON users.cid = customers.customerNumber
+	WHERE users.email = ?;`;//specified email as email is in both tables
+	//that was just one line above
+	connection.query(checkLoginQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}else if(results.length === 0){
+			// this user is not in database
+			res.json({
+				msg:"badUser"
+			})
+		}else{
+			//this email is valid, see if the password is...
+			// password is the english they gave us on the form
+			// result[0].password is what we have for this user in the DB
+			const checkHash = bcrypt.compareSync(password, results[0].password);
+			const name = results[0].customerName;
+			if (checkHash){
+				// these are the droids we are looking for.
+				// create a new token.
+				// update their row in the DB with the token
+				// send some json back to react/ajax/axios
+				const newToken = randToken.uid(100);
+				const updateToken = `UPDATE users SET token = ? WHERE email=?;`;
+				connection.query(updateToken, [newToken, email], (error)=>{
+					if (error){
+						throw error;
+					}else{
+					res.json({
+						msg: "login Success",
+						token: newToken,
+						name: name
+						})
+					}
+				})
+			}else{
+				//you don't want to sell me deathsticks. You want to go home and rethink your life
+				res.json({
+					msg: "wrongPassword"
+				})
+			}
+		}
+	})
+	// res.json(req.body);
+})
+
+
+console.log(randToken.uid(100));//use it as a replacment for uid - a 100 character token = length
+// randToken will be used instead of sessions here
+
 /* GET home page. */
 router.post('/register', function(req, res, next) {
 	const userData = req.body;
@@ -55,7 +109,7 @@ router.post('/register', function(req, res, next) {
 					throw error; //throw error will stop programm
 				}
 				// get the cx id that was just inserted(from results)
-				console.log(results.insertId)
+				console.log('user id in customers database', results.insertId)
 				const newId = results.insertId;//that is a customer's id
 				const token = randToken.uid(60);//set up a random string for the user's token,
 				//we will store it into DB.
@@ -83,6 +137,82 @@ router.post('/register', function(req, res, next) {
 				res.json(error)
 		})
 });
+
+router.get('/productlines/get', (req, res, next)=>{
+	console.log('someone showed up at productlines/get')
+	const selectQuery=`SELECT * FROM productlines`;
+	connection.query(selectQuery, (error, results)=>{
+		if(error){
+			throw error
+		}else{
+			res.json(
+				// msg: "it works!"
+				results
+			)
+		}
+	})
+})
+
+router.get('/productlines/:productlines/get', (req, res, next)=>{
+	const pl = req.params.productline //extraction from query
+	var plQuery = `SELECT * FROM productlines
+		INNER JOIN products ON productlines.productLine = products.productLine
+		WHERE productlines.productline = ?;`;
+	connection.query(plQuery, [pl], (error, results)=>{
+		if (error){
+			throw error //dev only
+		}else{
+			res.json(results);
+		}
+	})
+})
+
+
+router.post('/fakelogin', (req, res, next)=>{
+	const getFirstUser = `SELECT * FROM users limit 1;`;
+	connection.query(getFirstUser, (error, results)=>{
+		if (error){
+			throw error
+		}else{
+			res.json({
+				msg: "success",
+				token: results[0].token,
+				email: results[0].email
+			})
+		}
+	})
+})
+
+router.post('/getCart', (req, res, next)=>{
+	const token = req.body.token;
+	const getUidQuery = `SELECT id from users WHERE token = ?;`;
+	connection.query(getUidQuery, [userToken], (error, results)=>{
+		if(error){//dev only
+			throw error
+		}else if (results.length === 0){
+			res.json({
+				msg: "badToken"
+			})
+		}else{
+			//Get the user's id for the last query
+			const uid = results[0].id;
+			//this is a good token. I know who this is now
+			const getCartTotals 
+		}
+	})
+})
+
+const getCartProducts = `SELECT * FROM cart INNER JOIN products ON 
+			products.productCode = cart.ProductCode WHERE cart.uid =?;`;
+	connection.query(getCartProducts, [uid], (error, cartContents)=>{
+		if(error){
+			throw error; //dev only
+		}else{
+			var finalCart = cartReslts[0];
+			finalCart.products = cartContents;
+			res.json(finalCart)
+		}
+	})
 
 module.exports = router;
 

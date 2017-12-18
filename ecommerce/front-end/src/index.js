@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
-import Student from './Student';
-import NavBar from './NavBar';
+// import Student from './Student';
+// import NavBar from './NavBar';
 import 'normalize.css/normalize.css';
 
 
